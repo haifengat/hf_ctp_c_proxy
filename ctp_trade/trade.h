@@ -1,4 +1,4 @@
-﻿
+
 #pragma once
 #ifdef _WINDOWS  //64位系统没有预定义 WIN32
 #ifdef __cplusplus
@@ -18,11 +18,11 @@
 #define WINAPI      __stdcall
 #define WIN32_LEAN_AND_MEAN             //  从 Windows 头文件中排除极少使用的信息
 #include "stddef.h"
-#include "../ctp_20160628/ThostFtdcTraderApi.h"
-#pragma comment(lib, "../ctp_20160628/thosttraderapi.lib")
+#include "../ctp_20160606/ThostFtdcTraderApi.h"
+#pragma comment(lib, "../ctp_20160606/thosttraderapi.lib")
 #else
 #define WINAPI
-#include "../ctp_20160628/ThostFtdcTraderApi.h"
+#include "../ctp_20160606/ThostFtdcTraderApi.h"
 #endif
 
 #include <string.h>
@@ -66,7 +66,6 @@ public:
 	typedef int (WINAPI *RspForQuoteInsert)(CThostFtdcInputForQuoteField *pInputForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQuoteInsert)(CThostFtdcInputQuoteField *pInputQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQuoteAction)(CThostFtdcInputQuoteActionField *pInputQuoteAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspLockInsert)(CThostFtdcInputLockField *pInputLock, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspBatchOrderAction)(CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspCombActionInsert)(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryOrder)(CThostFtdcOrderField *pOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
@@ -104,11 +103,6 @@ public:
 	typedef int (WINAPI *RspQryExecOrder)(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryForQuote)(CThostFtdcForQuoteField *pForQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryQuote)(CThostFtdcQuoteField *pQuote, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryLock)(CThostFtdcLockField *pLock, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryLockPosition)(CThostFtdcLockPositionField *pLockPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryETFOptionInstrCommRate)(CThostFtdcETFOptionInstrCommRateField *pETFOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryInvestorLevel)(CThostFtdcInvestorLevelField *pInvestorLevel, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryExecFreeze)(CThostFtdcExecFreezeField *pExecFreeze, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryCombInstrumentGuard)(CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryCombAction)(CThostFtdcCombActionField *pCombAction, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryTransferSerial)(CThostFtdcTransferSerialField *pTransferSerial, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
@@ -131,8 +125,6 @@ public:
 	typedef int (WINAPI *ErrRtnQuoteAction)(CThostFtdcQuoteActionField *pQuoteAction, CThostFtdcRspInfoField *pRspInfo);
 	typedef int (WINAPI *RtnForQuoteRsp)(CThostFtdcForQuoteRspField *pForQuoteRsp);
 	typedef int (WINAPI *RtnCFMMCTradingAccountToken)(CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken);
-	typedef int (WINAPI *RtnLock)(CThostFtdcLockField *pLock);
-	typedef int (WINAPI *ErrRtnLockInsert)(CThostFtdcInputLockField *pInputLock, CThostFtdcRspInfoField *pRspInfo);
 	typedef int (WINAPI *ErrRtnBatchOrderAction)(CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo);
 	typedef int (WINAPI *RtnCombAction)(CThostFtdcCombActionField *pCombAction);
 	typedef int (WINAPI *ErrRtnCombActionInsert)(CThostFtdcInputCombActionField *pInputCombAction, CThostFtdcRspInfoField *pRspInfo);
@@ -187,7 +179,6 @@ public:
 	void *_RspForQuoteInsert;
 	void *_RspQuoteInsert;
 	void *_RspQuoteAction;
-	void *_RspLockInsert;
 	void *_RspBatchOrderAction;
 	void *_RspCombActionInsert;
 	void *_RspQryOrder;
@@ -225,11 +216,6 @@ public:
 	void *_RspQryExecOrder;
 	void *_RspQryForQuote;
 	void *_RspQryQuote;
-	void *_RspQryLock;
-	void *_RspQryLockPosition;
-	void *_RspQryETFOptionInstrCommRate;
-	void *_RspQryInvestorLevel;
-	void *_RspQryExecFreeze;
 	void *_RspQryCombInstrumentGuard;
 	void *_RspQryCombAction;
 	void *_RspQryTransferSerial;
@@ -252,8 +238,6 @@ public:
 	void *_ErrRtnQuoteAction;
 	void *_RtnForQuoteRsp;
 	void *_RtnCFMMCTradingAccountToken;
-	void *_RtnLock;
-	void *_ErrRtnLockInsert;
 	void *_ErrRtnBatchOrderAction;
 	void *_RtnCombAction;
 	void *_ErrRtnCombActionInsert;
@@ -521,19 +505,6 @@ public:
 			{
 				CThostFtdcInputQuoteActionField f; memset(&f, 0, sizeof(f));
 				((RspQuoteAction)_RspQuoteAction)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspLockInsert (CThostFtdcInputLockField *pInputLock, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspLockInsert)
-		{
-			if (pInputLock)
-				((RspLockInsert)_RspLockInsert)(pInputLock, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcInputLockField f; memset(&f, 0, sizeof(f));
-				((RspLockInsert)_RspLockInsert)(&f, repare(pRspInfo), nRequestID, bIsLast);
 			}
 		}
 	}
@@ -1018,71 +989,6 @@ public:
 			}
 		}
 	}
-	virtual void OnRspQryLock (CThostFtdcLockField *pLock, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryLock)
-		{
-			if (pLock)
-				((RspQryLock)_RspQryLock)(pLock, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcLockField f; memset(&f, 0, sizeof(f));
-				((RspQryLock)_RspQryLock)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspQryLockPosition (CThostFtdcLockPositionField *pLockPosition, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryLockPosition)
-		{
-			if (pLockPosition)
-				((RspQryLockPosition)_RspQryLockPosition)(pLockPosition, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcLockPositionField f; memset(&f, 0, sizeof(f));
-				((RspQryLockPosition)_RspQryLockPosition)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspQryETFOptionInstrCommRate (CThostFtdcETFOptionInstrCommRateField *pETFOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryETFOptionInstrCommRate)
-		{
-			if (pETFOptionInstrCommRate)
-				((RspQryETFOptionInstrCommRate)_RspQryETFOptionInstrCommRate)(pETFOptionInstrCommRate, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcETFOptionInstrCommRateField f; memset(&f, 0, sizeof(f));
-				((RspQryETFOptionInstrCommRate)_RspQryETFOptionInstrCommRate)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspQryInvestorLevel (CThostFtdcInvestorLevelField *pInvestorLevel, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryInvestorLevel)
-		{
-			if (pInvestorLevel)
-				((RspQryInvestorLevel)_RspQryInvestorLevel)(pInvestorLevel, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcInvestorLevelField f; memset(&f, 0, sizeof(f));
-				((RspQryInvestorLevel)_RspQryInvestorLevel)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspQryExecFreeze (CThostFtdcExecFreezeField *pExecFreeze, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryExecFreeze)
-		{
-			if (pExecFreeze)
-				((RspQryExecFreeze)_RspQryExecFreeze)(pExecFreeze, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcExecFreezeField f; memset(&f, 0, sizeof(f));
-				((RspQryExecFreeze)_RspQryExecFreeze)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
 	virtual void OnRspQryCombInstrumentGuard (CThostFtdcCombInstrumentGuardField *pCombInstrumentGuard, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 	{
 		if (_RspQryCombInstrumentGuard)
@@ -1210,14 +1116,6 @@ public:
 	virtual void OnRtnCFMMCTradingAccountToken (CThostFtdcCFMMCTradingAccountTokenField *pCFMMCTradingAccountToken)
 	{
 		if (_RtnCFMMCTradingAccountToken) ((RtnCFMMCTradingAccountToken)_RtnCFMMCTradingAccountToken)(pCFMMCTradingAccountToken);
-	}
-	virtual void OnRtnLock (CThostFtdcLockField *pLock)
-	{
-		if (_RtnLock) ((RtnLock)_RtnLock)(pLock);
-	}
-	virtual void OnErrRtnLockInsert (CThostFtdcInputLockField *pInputLock, CThostFtdcRspInfoField *pRspInfo)
-	{
-		if (_ErrRtnLockInsert) ((ErrRtnLockInsert)_ErrRtnLockInsert)(pInputLock, pRspInfo);
 	}
 	virtual void OnErrRtnBatchOrderAction (CThostFtdcBatchOrderActionField *pBatchOrderAction, CThostFtdcRspInfoField *pRspInfo)
 	{

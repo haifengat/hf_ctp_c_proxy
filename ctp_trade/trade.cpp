@@ -27,7 +27,6 @@ Trade::Trade(void)
 	_RspForQuoteInsert = NULL;
 	_RspQuoteInsert = NULL;
 	_RspQuoteAction = NULL;
-	_RspLockInsert = NULL;
 	_RspBatchOrderAction = NULL;
 	_RspCombActionInsert = NULL;
 	_RspQryOrder = NULL;
@@ -65,11 +64,6 @@ Trade::Trade(void)
 	_RspQryExecOrder = NULL;
 	_RspQryForQuote = NULL;
 	_RspQryQuote = NULL;
-	_RspQryLock = NULL;
-	_RspQryLockPosition = NULL;
-	_RspQryETFOptionInstrCommRate = NULL;
-	_RspQryInvestorLevel = NULL;
-	_RspQryExecFreeze = NULL;
 	_RspQryCombInstrumentGuard = NULL;
 	_RspQryCombAction = NULL;
 	_RspQryTransferSerial = NULL;
@@ -92,8 +86,6 @@ Trade::Trade(void)
 	_ErrRtnQuoteAction = NULL;
 	_RtnForQuoteRsp = NULL;
 	_RtnCFMMCTradingAccountToken = NULL;
-	_RtnLock = NULL;
-	_ErrRtnLockInsert = NULL;
 	_ErrRtnBatchOrderAction = NULL;
 	_RtnCombAction = NULL;
 	_ErrRtnCombActionInsert = NULL;
@@ -149,7 +141,6 @@ DLL_EXPORT_C_DECL void WINAPI SetOnRspExecOrderAction(Trade* spi, void* func){sp
 DLL_EXPORT_C_DECL void WINAPI SetOnRspForQuoteInsert(Trade* spi, void* func){spi->_RspForQuoteInsert = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQuoteInsert(Trade* spi, void* func){spi->_RspQuoteInsert = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQuoteAction(Trade* spi, void* func){spi->_RspQuoteAction = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRspLockInsert(Trade* spi, void* func){spi->_RspLockInsert = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspBatchOrderAction(Trade* spi, void* func){spi->_RspBatchOrderAction = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspCombActionInsert(Trade* spi, void* func){spi->_RspCombActionInsert = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryOrder(Trade* spi, void* func){spi->_RspQryOrder = func;}
@@ -187,11 +178,6 @@ DLL_EXPORT_C_DECL void WINAPI SetOnRspQryOptionInstrCommRate(Trade* spi, void* f
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryExecOrder(Trade* spi, void* func){spi->_RspQryExecOrder = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryForQuote(Trade* spi, void* func){spi->_RspQryForQuote = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryQuote(Trade* spi, void* func){spi->_RspQryQuote = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRspQryLock(Trade* spi, void* func){spi->_RspQryLock = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRspQryLockPosition(Trade* spi, void* func){spi->_RspQryLockPosition = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRspQryETFOptionInstrCommRate(Trade* spi, void* func){spi->_RspQryETFOptionInstrCommRate = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRspQryInvestorLevel(Trade* spi, void* func){spi->_RspQryInvestorLevel = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRspQryExecFreeze(Trade* spi, void* func){spi->_RspQryExecFreeze = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryCombInstrumentGuard(Trade* spi, void* func){spi->_RspQryCombInstrumentGuard = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryCombAction(Trade* spi, void* func){spi->_RspQryCombAction = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRspQryTransferSerial(Trade* spi, void* func){spi->_RspQryTransferSerial = func;}
@@ -214,8 +200,6 @@ DLL_EXPORT_C_DECL void WINAPI SetOnErrRtnQuoteInsert(Trade* spi, void* func){spi
 DLL_EXPORT_C_DECL void WINAPI SetOnErrRtnQuoteAction(Trade* spi, void* func){spi->_ErrRtnQuoteAction = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRtnForQuoteRsp(Trade* spi, void* func){spi->_RtnForQuoteRsp = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRtnCFMMCTradingAccountToken(Trade* spi, void* func){spi->_RtnCFMMCTradingAccountToken = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnRtnLock(Trade* spi, void* func){spi->_RtnLock = func;}
-DLL_EXPORT_C_DECL void WINAPI SetOnErrRtnLockInsert(Trade* spi, void* func){spi->_ErrRtnLockInsert = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnErrRtnBatchOrderAction(Trade* spi, void* func){spi->_ErrRtnBatchOrderAction = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnRtnCombAction(Trade* spi, void* func){spi->_RtnCombAction = func;}
 DLL_EXPORT_C_DECL void WINAPI SetOnErrRtnCombActionInsert(Trade* spi, void* func){spi->_ErrRtnCombActionInsert = func;}
@@ -281,7 +265,6 @@ DLL_EXPORT_C_DECL void* WINAPI ReqExecOrderAction(CThostFtdcTraderApi *api ,CTho
 DLL_EXPORT_C_DECL void* WINAPI ReqForQuoteInsert(CThostFtdcTraderApi *api ,CThostFtdcInputForQuoteField *pInputForQuote, int nRequestID){api->ReqForQuoteInsert(pInputForQuote,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQuoteInsert(CThostFtdcTraderApi *api ,CThostFtdcInputQuoteField *pInputQuote, int nRequestID){api->ReqQuoteInsert(pInputQuote,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQuoteAction(CThostFtdcTraderApi *api ,CThostFtdcInputQuoteActionField *pInputQuoteAction, int nRequestID){api->ReqQuoteAction(pInputQuoteAction,nRequestID); return 0;}
-DLL_EXPORT_C_DECL void* WINAPI ReqLockInsert(CThostFtdcTraderApi *api ,CThostFtdcInputLockField *pInputLock, int nRequestID){api->ReqLockInsert(pInputLock,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqBatchOrderAction(CThostFtdcTraderApi *api ,CThostFtdcInputBatchOrderActionField *pInputBatchOrderAction, int nRequestID){api->ReqBatchOrderAction(pInputBatchOrderAction,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqCombActionInsert(CThostFtdcTraderApi *api ,CThostFtdcInputCombActionField *pInputCombAction, int nRequestID){api->ReqCombActionInsert(pInputCombAction,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQryOrder(CThostFtdcTraderApi *api ,CThostFtdcQryOrderField *pQryOrder, int nRequestID){api->ReqQryOrder(pQryOrder,nRequestID); return 0;}
@@ -319,11 +302,6 @@ DLL_EXPORT_C_DECL void* WINAPI ReqQryOptionInstrCommRate(CThostFtdcTraderApi *ap
 DLL_EXPORT_C_DECL void* WINAPI ReqQryExecOrder(CThostFtdcTraderApi *api ,CThostFtdcQryExecOrderField *pQryExecOrder, int nRequestID){api->ReqQryExecOrder(pQryExecOrder,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQryForQuote(CThostFtdcTraderApi *api ,CThostFtdcQryForQuoteField *pQryForQuote, int nRequestID){api->ReqQryForQuote(pQryForQuote,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQryQuote(CThostFtdcTraderApi *api ,CThostFtdcQryQuoteField *pQryQuote, int nRequestID){api->ReqQryQuote(pQryQuote,nRequestID); return 0;}
-DLL_EXPORT_C_DECL void* WINAPI ReqQryLock(CThostFtdcTraderApi *api ,CThostFtdcQryLockField *pQryLock, int nRequestID){api->ReqQryLock(pQryLock,nRequestID); return 0;}
-DLL_EXPORT_C_DECL void* WINAPI ReqQryLockPosition(CThostFtdcTraderApi *api ,CThostFtdcQryLockPositionField *pQryLockPosition, int nRequestID){api->ReqQryLockPosition(pQryLockPosition,nRequestID); return 0;}
-DLL_EXPORT_C_DECL void* WINAPI ReqQryETFOptionInstrCommRate(CThostFtdcTraderApi *api ,CThostFtdcQryETFOptionInstrCommRateField *pQryETFOptionInstrCommRate, int nRequestID){api->ReqQryETFOptionInstrCommRate(pQryETFOptionInstrCommRate,nRequestID); return 0;}
-DLL_EXPORT_C_DECL void* WINAPI ReqQryInvestorLevel(CThostFtdcTraderApi *api ,CThostFtdcQryInvestorLevelField *pQryInvestorLevel, int nRequestID){api->ReqQryInvestorLevel(pQryInvestorLevel,nRequestID); return 0;}
-DLL_EXPORT_C_DECL void* WINAPI ReqQryExecFreeze(CThostFtdcTraderApi *api ,CThostFtdcQryExecFreezeField *pQryExecFreeze, int nRequestID){api->ReqQryExecFreeze(pQryExecFreeze,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQryCombInstrumentGuard(CThostFtdcTraderApi *api ,CThostFtdcQryCombInstrumentGuardField *pQryCombInstrumentGuard, int nRequestID){api->ReqQryCombInstrumentGuard(pQryCombInstrumentGuard,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQryCombAction(CThostFtdcTraderApi *api ,CThostFtdcQryCombActionField *pQryCombAction, int nRequestID){api->ReqQryCombAction(pQryCombAction,nRequestID); return 0;}
 DLL_EXPORT_C_DECL void* WINAPI ReqQryTransferSerial(CThostFtdcTraderApi *api ,CThostFtdcQryTransferSerialField *pQryTransferSerial, int nRequestID){api->ReqQryTransferSerial(pQryTransferSerial,nRequestID); return 0;}
