@@ -18,11 +18,11 @@
 #define WINAPI      __stdcall
 #define WIN32_LEAN_AND_MEAN             //  从 Windows 头文件中排除极少使用的信息
 #include "stddef.h"
-#include "../ctp_20160606/ThostFtdcTraderApi.h"
-#pragma comment(lib, "../ctp_20160606/thosttraderapi.lib")
+#include "../KN_20150515/ThostFtdcTraderApi.h"
+#pragma comment(lib, "../KN_20150515/thosttraderapi.lib")
 #else
 #define WINAPI
-#include "../ctp_20160606/ThostFtdcTraderApi.h"
+#include "../KN_20150515/ThostFtdcTraderApi.h"
 #endif
 
 #include <string.h>
@@ -48,7 +48,7 @@ public:
 	typedef int (WINAPI *FrontConnected)();
 	typedef int (WINAPI *FrontDisconnected)(int nReason);
 	typedef int (WINAPI *HeartBeatWarning)(int nTimeLapse);
-	typedef int (WINAPI *RspAuthenticate)(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+	typedef int (WINAPI *RspAuthenticate)(CThostFtdcRspAuthenticateField *pRspAuthenticate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspUserLogin)(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspUserLogout)(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspUserPasswordUpdate)(CThostFtdcUserPasswordUpdateField *pUserPasswordUpdate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
@@ -95,9 +95,6 @@ public:
 	typedef int (WINAPI *RspQrySecAgentACIDMap)(CThostFtdcSecAgentACIDMapField *pSecAgentACIDMap, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryProductExchRate)(CThostFtdcProductExchRateField *pProductExchRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryProductGroup)(CThostFtdcProductGroupField *pProductGroup, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryMMInstrumentCommissionRate)(CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryMMOptionInstrCommRate)(CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-	typedef int (WINAPI *RspQryInstrumentOrderCommRate)(CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryOptionInstrTradeCost)(CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryOptionInstrCommRate)(CThostFtdcOptionInstrCommRateField *pOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	typedef int (WINAPI *RspQryExecOrder)(CThostFtdcExecOrderField *pExecOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
@@ -113,7 +110,6 @@ public:
 	typedef int (WINAPI *ErrRtnOrderInsert)(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo);
 	typedef int (WINAPI *ErrRtnOrderAction)(CThostFtdcOrderActionField *pOrderAction, CThostFtdcRspInfoField *pRspInfo);
 	typedef int (WINAPI *RtnInstrumentStatus)(CThostFtdcInstrumentStatusField *pInstrumentStatus);
-	typedef int (WINAPI *RtnBulletin)(CThostFtdcBulletinField *pBulletin);
 	typedef int (WINAPI *RtnTradingNotice)(CThostFtdcTradingNoticeInfoField *pTradingNoticeInfo);
 	typedef int (WINAPI *RtnErrorConditionalOrder)(CThostFtdcErrorConditionalOrderField *pErrorConditionalOrder);
 	typedef int (WINAPI *RtnExecOrder)(CThostFtdcExecOrderField *pExecOrder);
@@ -208,9 +204,6 @@ public:
 	void *_RspQrySecAgentACIDMap;
 	void *_RspQryProductExchRate;
 	void *_RspQryProductGroup;
-	void *_RspQryMMInstrumentCommissionRate;
-	void *_RspQryMMOptionInstrCommRate;
-	void *_RspQryInstrumentOrderCommRate;
 	void *_RspQryOptionInstrTradeCost;
 	void *_RspQryOptionInstrCommRate;
 	void *_RspQryExecOrder;
@@ -226,7 +219,6 @@ public:
 	void *_ErrRtnOrderInsert;
 	void *_ErrRtnOrderAction;
 	void *_RtnInstrumentStatus;
-	void *_RtnBulletin;
 	void *_RtnTradingNotice;
 	void *_RtnErrorConditionalOrder;
 	void *_RtnExecOrder;
@@ -274,12 +266,12 @@ public:
 	virtual void OnFrontConnected () {if (_FrontConnected) ((FrontConnected)_FrontConnected)();}
 	virtual void OnFrontDisconnected (int nReason) {if (_FrontDisconnected) ((FrontDisconnected)_FrontDisconnected)(nReason);}
 	virtual void OnHeartBeatWarning (int nTimeLapse) {if (_HeartBeatWarning) ((HeartBeatWarning)_HeartBeatWarning)(nTimeLapse);}
-	virtual void OnRspAuthenticate (CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
+	virtual void OnRspAuthenticate (CThostFtdcRspAuthenticateField *pRspAuthenticate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 	{
 		if (_RspAuthenticate)
 		{
-			if (pRspAuthenticateField)
-				((RspAuthenticate)_RspAuthenticate)(pRspAuthenticateField, repare(pRspInfo), nRequestID, bIsLast);
+			if (pRspAuthenticate)
+				((RspAuthenticate)_RspAuthenticate)(pRspAuthenticate, repare(pRspInfo), nRequestID, bIsLast);
 			else
 			{
 				CThostFtdcRspAuthenticateField f; memset(&f, 0, sizeof(f));
@@ -885,45 +877,6 @@ public:
 			}
 		}
 	}
-	virtual void OnRspQryMMInstrumentCommissionRate (CThostFtdcMMInstrumentCommissionRateField *pMMInstrumentCommissionRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryMMInstrumentCommissionRate)
-		{
-			if (pMMInstrumentCommissionRate)
-				((RspQryMMInstrumentCommissionRate)_RspQryMMInstrumentCommissionRate)(pMMInstrumentCommissionRate, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcMMInstrumentCommissionRateField f; memset(&f, 0, sizeof(f));
-				((RspQryMMInstrumentCommissionRate)_RspQryMMInstrumentCommissionRate)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspQryMMOptionInstrCommRate (CThostFtdcMMOptionInstrCommRateField *pMMOptionInstrCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryMMOptionInstrCommRate)
-		{
-			if (pMMOptionInstrCommRate)
-				((RspQryMMOptionInstrCommRate)_RspQryMMOptionInstrCommRate)(pMMOptionInstrCommRate, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcMMOptionInstrCommRateField f; memset(&f, 0, sizeof(f));
-				((RspQryMMOptionInstrCommRate)_RspQryMMOptionInstrCommRate)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
-	virtual void OnRspQryInstrumentOrderCommRate (CThostFtdcInstrumentOrderCommRateField *pInstrumentOrderCommRate, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
-	{
-		if (_RspQryInstrumentOrderCommRate)
-		{
-			if (pInstrumentOrderCommRate)
-				((RspQryInstrumentOrderCommRate)_RspQryInstrumentOrderCommRate)(pInstrumentOrderCommRate, repare(pRspInfo), nRequestID, bIsLast);
-			else
-			{
-				CThostFtdcInstrumentOrderCommRateField f; memset(&f, 0, sizeof(f));
-				((RspQryInstrumentOrderCommRate)_RspQryInstrumentOrderCommRate)(&f, repare(pRspInfo), nRequestID, bIsLast);
-			}
-		}
-	}
 	virtual void OnRspQryOptionInstrTradeCost (CThostFtdcOptionInstrTradeCostField *pOptionInstrTradeCost, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast)
 	{
 		if (_RspQryOptionInstrTradeCost)
@@ -1068,10 +1021,6 @@ public:
 	virtual void OnRtnInstrumentStatus (CThostFtdcInstrumentStatusField *pInstrumentStatus)
 	{
 		if (_RtnInstrumentStatus) ((RtnInstrumentStatus)_RtnInstrumentStatus)(pInstrumentStatus);
-	}
-	virtual void OnRtnBulletin (CThostFtdcBulletinField *pBulletin)
-	{
-		if (_RtnBulletin) ((RtnBulletin)_RtnBulletin)(pBulletin);
 	}
 	virtual void OnRtnTradingNotice (CThostFtdcTradingNoticeInfoField *pTradingNoticeInfo)
 	{
