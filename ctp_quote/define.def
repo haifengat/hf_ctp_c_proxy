@@ -1,0 +1,32 @@
+
+EXPORTS
+	CreateApi		@1
+	CreateSpi		@2
+	GetTradingDay		@3
+	Init		@4
+	Join		@5
+	RegisterFensUserInfo		@6
+	RegisterFront		@7
+	RegisterNameServer		@8
+	RegisterSpi		@9
+	Release		@10
+	ReqUserLogin		@11
+	ReqUserLogout		@12
+	SetOnFrontConnected		@13
+	SetOnFrontDisconnected		@14
+	SetOnHeartBeatWarning		@15
+	SetOnRspError		@16
+	SetOnRspSubForQuoteRsp		@17
+	SetOnRspSubMarketData		@18
+	SetOnRspUnSubForQuoteRsp		@19
+	SetOnRspUnSubMarketData		@20
+	SetOnRspUserLogin		@21
+	SetOnRspUserLogout		@22
+	SetOnRtnDepthMarketData		@23
+	SetOnRtnForQuoteRsp		@24
+	SubscribeForQuoteRsp		@25
+	SubscribeMarketData		@26
+	UnSubscribeForQuoteRsp		@27
+	UnSubscribeMarketData		@28
+	;
+
