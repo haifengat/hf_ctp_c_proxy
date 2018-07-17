@@ -1,3 +1,4 @@
+# 最新版本合并到 hf_ctp_py_proxy 项目中， https://github.com/haifengat/hf_ctp_py_proxy
 
 # hf_ctp_c_proxy
  上期技术CTP封装,可用C#,PY等语言调用.采用最新CTP版本,支持期权交易.支持win和linux 64位系统.
